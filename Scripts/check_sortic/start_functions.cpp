@@ -5,7 +5,7 @@ void from_file(vector <int> & a, vector <int> & b)
 	cout << "Choose path to file (local)" << endl;
 	string path;
 	cin >> path;
-	ifstream file(path);
+	ifstream file(path.c_str());
 	string str;
 	file >> str;
 	while (str != "!")

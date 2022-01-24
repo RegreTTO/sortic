@@ -1,4 +1,4 @@
-#include "check_sortic.h"
+#include "rules.h"
 
 void ra(vector <int> & a)
 {
