@@ -1,4 +1,4 @@
-#include "check_sortic.h"
+#include "rules.h"
 
 void pa(vector <int> & a, vector <int> & b)
 {

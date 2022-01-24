@@ -1,6 +1,7 @@
 #ifndef CHECK_SORTIC_H
 #define CHECK_SORTIC_H
 
+#include "../rules/rules.h"
 #include <iostream>
 #include <fstream>
 #include <string>

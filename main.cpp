@@ -1,4 +1,4 @@
-#include "check_sortic.h"
+#include "Scripts/check_sortic/check_sortic.h"
 
 int main()
 {
