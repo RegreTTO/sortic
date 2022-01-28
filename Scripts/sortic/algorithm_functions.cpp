@@ -49,37 +49,74 @@ void print_vectors(vector <int> & a, vector <int> & b, string function_name)
 	cout << "------------------------------------------------------------" << endl;
 }
 
-void sort_algorithm(vector <int> & a, vector <int> & b, string & str)
+void sort_first(vector <int> & a, vector <int> & b, string & str)
 {
-	str = "";
-	int move_cnt = 0;
-	cout << "------------------------------------------------------------" << endl;
-	while (a.size() > 1)
+	while (a.size() > 3)
 	{
-		if (move_cnt == a.size() - 1)
+		int min = min_ind(a);
+		int path_left = min;
+		int path_right = a.size() - min;
+		if (path_left < path_right)
 		{
-			pb(a, b);
-			move_cnt = 0;
-			str += "pb\n";
-			print_vectors(a, b, "pb");
-		}
-		else
-		{
-			if (a[0] >= a[1])
+			for (int j = 0; j < path_left; j++)
 			{
 				ra(a);
-				move_cnt++;
 				str += "ra\n";
 				print_vectors(a, b, "ra");
 			}
-			else
+		}
+		else
+		{
+			for (int j = 0; j < path_right; j++)
 			{
-				sa(a);
-				str += "sa\n";
-				print_vectors(a, b, "sa");
+				rra(a);
+				str += "rra\n";
+				print_vectors(a, b, "rra");
 			}
 		}
+		pb(a, b);
+		str += "pb\n";
+		print_vectors(a, b, "pb");
 	}
+}
+
+void sort_last(vector <int> & a, vector <int> & b, string & str)
+{
+	int max = max_ind(a);
+	int left_path = max + 1;
+	int right_path = a.size() - 1 - max;
+	if (right_path < left_path)
+	{
+		for (int i = 0; i < right_path; i++)
+		{
+			rra(a);
+			str += "rra\n";
+			print_vectors(a, b, "rra");
+		}
+	}
+	else
+	{
+		for (int i = 0; i < left_path; i++)
+		{
+			ra(a);
+			str += "ra\n";
+			print_vectors(a, b, "ra");
+		}
+	}
+	if (a[1] < a[0])
+	{
+		sa(a);
+		str += "sa\n";
+		print_vectors(a, b, "sa");
+	}
+}
+
+void sort_algorithm(vector <int> & a, vector <int> & b, string & str)
+{
+	str = "";
+	cout << "------------------------------------------------------------" << endl;
+	sort_first(a, b, str);
+	sort_last(a, b, str);
 	while (b.size() > 0)
 	{
 		pa(a, b);
@@ -87,5 +124,7 @@ void sort_algorithm(vector <int> & a, vector <int> & b, string & str)
 		print_vectors(a, b, "pa");
 	}
 	cout << "full answer is: " << endl <<
-		"------------------------------------------------------------" << endl << str;
+		"------------------------------------------------------------" << endl << str <<
+		"------------------------------------------------------------" << endl << 
+		"functions made: " << char_cnt(str, '\n') << endl;
 }
