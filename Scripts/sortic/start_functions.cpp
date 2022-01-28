@@ -5,7 +5,14 @@ void read_sortic_data(FILE *stream, vector<int> &a, vector<int> &b) {
 	string str;
 	fscanf(stream, "%s", &buff);
 	str = buff;
+	//bool error = false;
 	while (str != "!") {
+		//error = !correct_num(str);
+		//if (error)
+		//{
+		//	cout << "Error in number. Try again..." << endl;
+		//	return;
+		//}
 		int num = parse_number(str);
 		a.push_back(num);
 		fscanf(stream, "%s", &buff);
