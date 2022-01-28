@@ -1,26 +1,10 @@
 #include "sortic.h"
 
-int parse_number(string str)
+void print_vectors(FILE* stream, vector <int> & a, vector <int> & b, string function_name)
 {
-	int sign = 0; // 0 - false; 1 - true
-	if (str.size() > 0 && str[0] == '-')
-		sign = 1;
-	int num = 0;
-	int mult = 1;
-	for (int i = str.size() - 1; i >= sign; i--)
-	{
-		num += (str[i] - '0') * mult;
-		mult *= 10;
-	}
-	if (sign == 1)
-		num *= -1;
-	return num;
-}
 
-void print_vectors(vector <int> & a, vector <int> & b, string function_name)
-{
-	cout << function_name << endl;
-	cout << "------------------------------------------------------------" << endl;
+	fputs((function_name+'\n').c_str(), stream);
+	fputs("------------------------------------------------------------\n", stream);
 	int size1 = a.size();
 	int size2 = b.size();
 	int i = 0;
@@ -29,24 +13,24 @@ void print_vectors(vector <int> & a, vector <int> & b, string function_name)
 	{
 		if (i < size1)
 		{
-			cout << a[i] << " ";
+			fprintf(stream, "%d ", a[i]);
 			i++;
 		}
 		else
 		{
-			cout << " " << " ";
+			fputs("  ", stream);
 		}
 		if (j < size2)
 		{
-			cout << b[j] << endl;
+			fprintf(stream, "%d ", b[j]);
 			j++;
 		}
 		else
 		{
-			cout << " " << endl;
+			fputs(" ", stream);
 		}
 	}
-	cout << "------------------------------------------------------------" << endl;
+	fputs("------------------------------------------------------------\n",stream);
 }
 
 void sort_first(vector <int> & a, vector <int> & b, string & str)
@@ -62,7 +46,7 @@ void sort_first(vector <int> & a, vector <int> & b, string & str)
 			{
 				ra(a);
 				str += "ra\n";
-				print_vectors(a, b, "ra");
+				print_vectors(stdin, a, b, "ra");
 			}
 		}
 		else
@@ -71,12 +55,12 @@ void sort_first(vector <int> & a, vector <int> & b, string & str)
 			{
 				rra(a);
 				str += "rra\n";
-				print_vectors(a, b, "rra");
+				print_vectors(stdin, a, b, "rra");
 			}
 		}
 		pb(a, b);
 		str += "pb\n";
-		print_vectors(a, b, "pb");
+		print_vectors(stdin, a, b, "pb");
 	}
 }
 
@@ -91,7 +75,7 @@ void sort_last(vector <int> & a, vector <int> & b, string & str)
 		{
 			rra(a);
 			str += "rra\n";
-			print_vectors(a, b, "rra");
+			print_vectors(stdin, a, b, "rra");
 		}
 	}
 	else
@@ -100,19 +84,21 @@ void sort_last(vector <int> & a, vector <int> & b, string & str)
 		{
 			ra(a);
 			str += "ra\n";
-			print_vectors(a, b, "ra");
+			print_vectors(stdin, a, b, "ra");
 		}
 	}
 	if (a[1] < a[0])
 	{
 		sa(a);
 		str += "sa\n";
-		print_vectors(a, b, "sa");
+		print_vectors(stdin, a, b, "sa");
 	}
 }
 
 void sort_algorithm(vector <int> & a, vector <int> & b, string & str)
 {
+	FILE* stream = fopen("sortic_log.txt", "r");
+
 	str = "";
 	cout << "------------------------------------------------------------" << endl;
 	sort_first(a, b, str);
@@ -121,10 +107,13 @@ void sort_algorithm(vector <int> & a, vector <int> & b, string & str)
 	{
 		pa(a, b);
 		str += "pa\n";
-		print_vectors(a, b, "pa");
+		print_vectors(stream,a, b, "pa");
 	}
+
+
 	cout << "full answer is: " << endl <<
 		"------------------------------------------------------------" << endl << str <<
 		"------------------------------------------------------------" << endl << 
 		"functions made: " << char_cnt(str, '\n') << endl;
+	puts("For the details see sortic_log.txt\n");
 }
