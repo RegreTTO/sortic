@@ -18,5 +18,6 @@ void sort_algorithm(vector <int> & a, vector <int> & b, string & str);
 int min_ind(vector <int> & a);
 int max_ind(vector <int> & a);
 int char_cnt(string str, char ch);
+bool correct_num(string str);
 
 #endif
