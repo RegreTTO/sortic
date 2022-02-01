@@ -1,26 +1,25 @@
 #include "check_sortic.h"
 
-
 void read_check_data(FILE* stream, vector <int> & a, vector <int> & b)
 {
 	string str;
 	char buff[100];
-	fscanf(stream, "%s ", &buff);
+	fscanf(stream, "%s", &buff);
 	str = buff;
 	while (str != "!" && !feof(stream))
 	{
 		int num = parse_number(str);
 		a.push_back(num);
-		fscanf(stream, "%s ", &buff);
+		fscanf(stream, "%s", &buff);
 		str = buff;
 	}
 	vector <int> sorted = msort(a);
-	fscanf(stream, "%s ", &buff);
+	fscanf(stream, "%s", &buff);
 	str = buff;
 	while (str != "*" && !feof(stream))
 	{
 		parse_functions(str, a, b);
-		fscanf(stream, "%s ", &buff);
+		fscanf(stream, "%s", &buff);
 		str = buff;
 	}
 	if(a.empty()){

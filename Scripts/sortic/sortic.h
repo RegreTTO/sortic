@@ -3,6 +3,7 @@
 
 #include "../rules/rules.h"
 #include "../parse.h"
+#include "../colors/colors.h"
 #include <iostream>
 #include <fstream>
 #include <string>

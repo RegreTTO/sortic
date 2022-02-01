@@ -10,7 +10,7 @@ int main() {
 			return 0;
 		else if (command == "1")
 			start_sortic();
-		else if(command == "2")
+		else if (command == "2")
 			start_checker();
 		else {
 			puts("Unknown command. Enter it again!");
