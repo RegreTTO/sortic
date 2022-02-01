@@ -20,4 +20,4 @@ add_executable(sortic
         Scripts/sortic/sortic.h
         Scripts/sortic/start_functions.cpp
         Scripts/sortic/additional_functions.cpp
-        main.cpp Scripts/parse.cpp Scripts/parse.h)
+        main.cpp Scripts/parse.cpp Scripts/parse.h Scripts/colors/colors.cpp Scripts/colors/colors.h)
