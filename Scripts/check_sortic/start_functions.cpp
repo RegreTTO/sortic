@@ -1,57 +1,38 @@
 #include "check_sortic.h"
 
-void from_file(vector <int> & a, vector <int> & b)
+void read_check_data(FILE* stream, vector <int> & a, vector <int> & b)
 {
-	cout << "Choose path to file (local)" << endl;
-	string path;
-	cin >> path;
-	ifstream file(path.c_str());
 	string str;
-	file >> str;
-	while (str != "!")
+	char buff[100];
+	fscanf(stream, "%s", &buff);
+	str = buff;
+	while (str != "!" && !feof(stream))
 	{
 		int num = parse_number(str);
 		a.push_back(num);
-		file >> str;
+		fscanf(stream, "%s", &buff);
+		str = buff;
 	}
 	vector <int> sorted = msort(a);
-	file >> str;
-	while (str != "*")
+	fscanf(stream, "%s", &buff);
+	str = buff;
+	while (str != "*" && !feof(stream))
 	{
 		parse_functions(str, a, b);
-		file >> str;
+		fscanf(stream, "%s", &buff);
+		str = buff;
+	}
+	if(a.empty()){
+		puts("Appropriate data wasn't given. Check your input format.\nFORMAT: [ARRAY] ! [COMMANDS] * ");
+		return;
 	}
 	if (a == sorted)
-		cout << "OK";
+		cout << "OK\n";
 	else
-		cout << "KO";
-	file.close();
+		cout << "KO\n";
 }
 
-void from_console(vector <int> & a, vector <int> & b)
-{
-	string str;
-	cin >> str;
-	while (str != "!")
-	{
-		int num = parse_number(str);
-		a.push_back(num);
-		cin >> str;
-	}
-	vector <int> sorted = msort(a);
-	cin >> str;
-	while (str != "*")
-	{
-		parse_functions(str, a, b);
-		cin >> str;
-	}
-	if (a == sorted)
-		cout << "OK";
-	else
-		cout << "KO";
-}
-
-void start()
+void start_checker()
 {
 	vector <int> a;
 	vector <int> b;
@@ -60,11 +41,19 @@ void start()
 	cin >> input_mode;
 	if (input_mode == "0")
 	{
-		from_console(a, b);
+		read_check_data(stdin, a, b);
 	}
 	else if (input_mode == "1")
 	{
-		from_file(a, b);
+		puts("Enter the file path: ");
+		string path;
+		cin >> path;
+		FILE* stream = fopen(path.c_str(), "r");
+		if(!stream){
+			puts("There is not such a file!\n");
+			return;
+		}
+		read_check_data(stream, a, b);
 	}
 	else
 	{
