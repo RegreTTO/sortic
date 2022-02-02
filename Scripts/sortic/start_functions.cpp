@@ -1,27 +1,27 @@
 #include "sortic.h"
 
 void read_sortic_data(FILE *stream, vector<int> &a, vector<int> &b) {
-	char buff[100];
+	char *buff = (char*) malloc(100);
 	string str;
-	fscanf(stream, "%s", &buff);
+	fscanf(stream, "%s", buff);
 	str = buff;
 	bool error = false;
 	while (str != "!") {
 		error = !correct_num(str);
-		if (error)
-		{
+		if (error) {
 			cout << "Error in number. Try again..." << endl;
 			return;
 		}
 		int num = parse_number(str);
 		a.push_back(num);
-		fscanf(stream, "%s", &buff);
+		fscanf(stream, "%s", buff);
 		str = buff;
 	}
 	sort_algorithm(a, b, str);
 	ofstream out("sortic_result.txt");
 	out << str;
 	out.close();
+	delete[] buff;
 }
 
 void start_sortic() {
@@ -36,8 +36,8 @@ void start_sortic() {
 		puts("Enter the file name: ");
 		string path;
 		cin >> path;
-		FILE* stream = fopen(path.c_str(), "r");
-		if(!stream){
+		FILE *stream = fopen(path.c_str(), "r");
+		if (!stream) {
 			puts("There is not such a file!\n");
 			return;
 		}

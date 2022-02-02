@@ -3,6 +3,7 @@
 
 int main() {
 	while (true) {
+		puts(colors::DEFAULT.c_str());
 		puts("0 - exit, 1 - sortic, 2 - check_sortic");
 		string command;
 		cin >> command;
