@@ -8,6 +8,6 @@ using namespace std;
 
 int parse_number(string str);
 void parse_functions(string str, vector <int> & a, vector <int> & b);
-
+bool correct_num(string str);
 
 #endif //SORTIC_PARSE_H

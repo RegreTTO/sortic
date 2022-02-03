@@ -1,5 +1,13 @@
 #include "parse.h"
 
+bool correct_num(string str) {
+	for (int i = 0; i < str.size(); i++) {
+		if (!(str[i] >= '0' && str[i] <= '9'))
+			return false;
+	}
+	return true;
+}
+
 int parse_number(string str)
 {
 	int sign = 0; // 0 - false; 1 - true

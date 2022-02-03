@@ -1,4 +1,6 @@
 #include "sortic.h"
+#include "stdlib.h"
+
 
 void read_sortic_data(FILE *stream, vector<int> &a, vector<int> &b) {
 	char *buff = (char*) malloc(100);
@@ -10,6 +12,7 @@ void read_sortic_data(FILE *stream, vector<int> &a, vector<int> &b) {
 		error = !correct_num(str);
 		if (error) {
 			cout << "Error in number. Try again..." << endl;
+			fflush(stream);
 			return;
 		}
 		int num = parse_number(str);

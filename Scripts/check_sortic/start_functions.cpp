@@ -1,5 +1,6 @@
 #include "check_sortic.h"
 #include "../colors/colors.h"
+#include "stdlib.h"
 
 void read_check_data(FILE *stream, vector<int> &a, vector<int> &b) {
 	string str;
@@ -7,6 +8,12 @@ void read_check_data(FILE *stream, vector<int> &a, vector<int> &b) {
 	fscanf(stream, "%s", buff);
 	str = buff;
 	while (str != "!" && !feof(stream)) {
+        bool error = !correct_num(str);
+		if (error) {
+			cout << "Error in number. Try again..." << endl;
+			fflush(stream);
+			return;
+		}
 		int num = parse_number(str);
 		a.push_back(num);
 		fscanf(stream, "%s", buff);
@@ -20,7 +27,7 @@ void read_check_data(FILE *stream, vector<int> &a, vector<int> &b) {
 		fscanf(stream, "%s", buff);
 		str = buff;
 	}
-	if (a.empty() || str.back() != '*') {
+	if (a.empty() || str[str.size()-1] != '*') {
 
 		puts((colors::RED + "Appropriate data wasn't given. Check your input format.").c_str());
 		puts((colors::GRAY + "FORMAT: [ARRAY] ! [COMMANDS] * " + colors::DEFAULT).c_str());
